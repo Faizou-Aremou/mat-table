@@ -25,4 +25,9 @@
 
   <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
   <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+
+  <ng-template cdkNoDataRow>
+      <div> blabla bla</div>
+  </ng-template>
+
 </table>
