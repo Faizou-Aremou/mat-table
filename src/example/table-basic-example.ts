@@ -1,10 +1,19 @@
 import { DataSource } from '@angular/cdk/collections';
-import { AfterViewInit, Component, OnInit, ViewChild, viewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
 import { CdkTable, CdkTableModule } from '@angular/cdk/table';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {MatButtonToggleGroup, MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatTableModule} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
+import {
+  MatButtonToggleGroup,
+  MatButtonToggleModule,
+} from '@angular/material/button-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 /**
 /**
@@ -18,7 +27,6 @@ import {MatButtonModule} from '@angular/material/button';
   imports: [MatButtonModule, MatButtonToggleModule, MatTableModule],
 })
 export class TableBasicExample<T> {
-
   displayedColumns: string[] = [];
   dataSource = ELEMENT_DATA;
 
@@ -33,11 +41,25 @@ export class TableBasicExample<T> {
     this.displayedColumns[1] = 'name';
     this.displayedColumns[22] = 'weight';
     this.displayedColumns[23] = 'symbol';
+
+    setTimeout(() => {
+      this.dataSource = ELEMENT_DATA.slice();
+    }, 1000);
+
+    setTimeout(() => {
+      this.dataSource = ELEMENT_DATA.map((el) => {
+       return el.position === 10? {...el, name:'voy'}: el
+      });
+    }, 2000);
   }
 
   /** Whether the button toggle group contains the id as an active value. */
   isSticky(buttonToggleGroup: MatButtonToggleGroup, id: string) {
     return (buttonToggleGroup.value || []).indexOf(id) !== -1;
+  }
+
+  trackBy(el: any) {
+    return el.position;
   }
 }
 export interface PeriodicElement {
@@ -48,14 +70,14 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
 ];
